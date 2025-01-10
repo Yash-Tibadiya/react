@@ -8,17 +8,20 @@ import "./app.css";
 function App() {
   // let foodItems = [];
   let foodItems = ["Roti", "Milk", "Dal", "Rice", "Salad", "Butter", "Sabzi"];
+  let textToShow = "Food item entered by user";
 
-    //! parent handel the change in FoodInput
-    const handleOnChange = (e) => {
-      console.log(e.target.value);
-    };
-
+  //! parent handel the change in FoodInput
+  const handleOnChange = (e) => {
+    console.log(e.target.value);
+    //! not change the state so textToShow not change
+    textToShow = e.target.value;
+  };
 
   return (
     <>
       <Container>
         <h1 className="food-heading">Healthy Food</h1>
+        <p>{textToShow}</p>
         <ErrorMessage items={foodItems} />
         <FoodInput handleOnChange={handleOnChange} />
         <FoodItems items={foodItems} />
