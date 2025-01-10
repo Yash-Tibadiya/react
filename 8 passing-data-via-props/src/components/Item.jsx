@@ -1,9 +1,9 @@
 import styles from "./Item.module.css";
 
-const Item = ({ foodItem }) => {
+const Item = ({ items }) => {
   return (
     <li className={`${styles["kg-item"]}`}>
-      <span className={styles["kg-span"]}>{foodItem}</span>
+      <span className={styles["kg-span"]}>{items}</span>
     </li>
   );
 };
