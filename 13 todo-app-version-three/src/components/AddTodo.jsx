@@ -5,7 +5,8 @@ function AddTodo({ onNewItem }) {
   const [todoName, setTodoName] = useState("");
   const [todoDate, setTodoDate] = useState("");
 
-  const handleAddButtonClick = () => {
+  const handleAddButtonClick = (e) => {
+    e.preventDefault();
     onNewItem(todoName, todoDate);
     setTodoName("");
     setTodoDate("");
@@ -13,7 +14,7 @@ function AddTodo({ onNewItem }) {
 
   return (
     <div className="container text-center">
-      <div className="row kg-row">
+      <form onSubmit={handleAddButtonClick} className="row kg-row">
         <div className="col-6">
           <input
             type="text"
@@ -31,14 +32,13 @@ function AddTodo({ onNewItem }) {
         </div>
         <div className="col-2">
           <button
-            type="button"
+            type="submit"
             className="btn btn-success kg-button"
-            onClick={handleAddButtonClick}
           >
             <BiMessageAdd />
           </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 }
