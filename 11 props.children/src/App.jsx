@@ -8,18 +8,25 @@ import "./app.css";
 
 function App() {
   // let foodItems = [];
-  let foodItems = ["Roti", "Milk", "Dal", "Rice", "Salad", "Butter", "Sabzi"];
+  // let foodItems = ["Roti", "Milk", "Dal", "Rice", "Salad", "Butter", "Sabzi"];
   // let textToShow = "Food item entered by user";
 
-   const [taxtToShow, setTextToShow] = useState("Food item entered by user");
+  const [foodItems, setFoodItems] = useState([]);
+  // const [foodItems, setFoodItems] = useState(["Roti", "Milk", "Dal", "Rice"]);
+  const [taxtToShow, setTextToShow] = useState();
 
   //! parent handel the change in FoodInput
-  const handleOnChange = (e) => {
-    console.log(e.target.value);
+  const onKeyDown = (e) => {
+    // console.log(e.target.value);
     //! not change the state so textToShow not change
     // textToShow = e.target.value;
 
-    setTextToShow(e.target.value);
+    if(e.key === "Enter"){
+      let newFoodItem = e.target.value;
+      e.target.value= "";
+      // setTextToShow(e.target.value);
+      setFoodItems([...foodItems, newFoodItem]);
+    }
   };
 
   return (
@@ -28,7 +35,8 @@ function App() {
         <h1 className="food-heading">Healthy Food</h1>
         <p>{taxtToShow}</p>
         <ErrorMessage items={foodItems} />
-        <FoodInput handleOnChange={handleOnChange} />
+        {/* <FoodInput handleOnChange={handleOnChange} /> */}
+        <FoodInput handleKeyDown={onKeyDown} />
         <FoodItems items={foodItems} />
       </Container>
       {/* <Container>
