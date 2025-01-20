@@ -2,8 +2,8 @@ import { useRef } from "react";
 import { BiMessageAdd } from "react-icons/bi";
 
 function AddTodo({ onNewItem }) {
-  const todoNameElement = useRef("");
-  const todoDateElement = useRef("");
+  const todoNameElement = useRef();
+  const todoDateElement = useRef();
 
   const handleAddButtonClick = (e) => {
     e.preventDefault();

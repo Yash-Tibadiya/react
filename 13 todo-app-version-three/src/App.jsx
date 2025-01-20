@@ -8,8 +8,25 @@ import "./App.css";
 function App() {
   const [todoItems, setTodoItems] = useState([]);
 
+  // const handleNewItem = (itemName, itemDueDate) => {
+  //   setTodoItems([...todoItems, { name: itemName, dueDate: itemDueDate }]);
+  // };
+
+  // const handleNewItem = (itemName, itemDueDate) => {
+  //   setTodoItems((currValue) => {
+  //     const newTodoItems = [
+  //       ...currValue,
+  //       { name: itemName, dueDate: itemDueDate },
+  //     ];
+  //     return newTodoItems;
+  //   });
+  // };
+
   const handleNewItem = (itemName, itemDueDate) => {
-    setTodoItems([...todoItems, { name: itemName, dueDate: itemDueDate }]);
+    setTodoItems((currValue) => [
+      ...currValue,
+      { name: itemName, dueDate: itemDueDate },
+    ]);
   };
 
   const handleDeleteItem = (name) => {
@@ -25,7 +42,11 @@ function App() {
       <AppName />
       <AddTodo onNewItem={handleNewItem} />
       {todoItems.length === 0 && <WelcomeMessage />}
-      <TodoItems key={todoItems} todoItems={todoItems} onDeleteClick={handleDeleteItem}></TodoItems>
+      <TodoItems
+        key={todoItems}
+        todoItems={todoItems}
+        onDeleteClick={handleDeleteItem}
+      ></TodoItems>
     </center>
   );
 }
