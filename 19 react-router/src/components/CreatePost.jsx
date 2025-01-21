@@ -1,59 +1,38 @@
-import { useContext } from "react";
-import { useRef } from "react";
-import { PostList } from "../store/post-list-store";
-import { useNavigate } from "react-router-dom";
+// import { useContext } from "react";
+// import { useRef } from "react";
+// import { PostList } from "../store/post-list-store";
+import { Form, redirect } from "react-router-dom";
 
 const CreatePost = () => {
-  const { addPost } = useContext(PostList);
-  const navigate = useNavigate();
+  // const { addPost } = useContext(PostList);
+  // const navigate = useNavigate();
 
-  const userIdElement = useRef();
-  const postTitleElement = useRef();
-  const postBodyElement = useRef();
-  const tagsElement = useRef();
+  // const userIdElement = useRef();
+  // const postTitleElement = useRef();
+  // const postBodyElement = useRef();
+  // const tagsElement = useRef();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const userId = userIdElement.current.value;
-    const postTitle = postTitleElement.current.value;
-    const postBody = postBodyElement.current.value;
-    const tags = tagsElement.current.value.split(" ");
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   const userId = userIdElement.current.value;
+  //   const postTitle = postTitleElement.current.value;
+  //   const postBody = postBodyElement.current.value;
+  //   const tags = tagsElement.current.value.split(" ");
 
-    userIdElement.current.value = "";
-    postTitleElement.current.value = "";
-    postBodyElement.current.value = "";
-    tagsElement.current.value = "";
-
-    fetch("https://dummyjson.com/posts/add", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        title: postTitle,
-        body: postBody,
-        tags: tags,
-        reactions: {
-          likes: 0,
-          dislikes: 0,
-        },
-        views: 0,
-        userId: userId,
-      }),
-    })
-      .then((res) => res.json())
-      .then((post) => {
-        addPost(post);
-        navigate("/");
-      });
-  };
+  //   userIdElement.current.value = "";
+  //   postTitleElement.current.value = "";
+  //   postBodyElement.current.value = "";
+  //   tagsElement.current.value = "";
+  // };
 
   return (
-    <form className="create-post" onSubmit={handleSubmit}>
+    <Form method="POST" className="create-post">
       <div className="mb-3">
         <label htmlFor="userId" className="form-label">
           Enter Your User Id
         </label>
         <input
-          ref={userIdElement}
+          name="userId"
           type="text"
           className="form-control"
           id="userId"
@@ -66,7 +45,7 @@ const CreatePost = () => {
           Post Title
         </label>
         <input
-          ref={postTitleElement}
+          name="title"
           type="text"
           className="form-control"
           id="title"
@@ -79,7 +58,7 @@ const CreatePost = () => {
           Post Content
         </label>
         <textarea
-          ref={postBodyElement}
+          name="body"
           type="text"
           rows={4}
           className="form-control"
@@ -93,7 +72,7 @@ const CreatePost = () => {
           Enter Your Hashtags
         </label>
         <input
-          ref={tagsElement}
+          name="tags"
           type="text"
           className="form-control"
           id="tags"
@@ -103,8 +82,27 @@ const CreatePost = () => {
       <button type="submit" className="btn btn-primary">
         Post
       </button>
-    </form>
+    </Form>
   );
 };
+
+export async function createPostAction(data) {
+  const formData = await data.request.formData();
+  const postData = Object.fromEntries(formData);
+  postData.tags = postData.tags.split(" ");
+  console.log(postData);
+
+  fetch("https://dummyjson.com/posts/add", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(postData),
+  })
+    .then((res) => res.json())
+    .then((post) => {
+      console.log(post);
+    });
+
+  return redirect("/");
+}
 
 export default CreatePost;

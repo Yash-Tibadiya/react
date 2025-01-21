@@ -8,7 +8,7 @@ import {
 
 export const PostList = createContext({
   postList: [],
-  fetching: false,
+  // fetching: false,
   addPost: () => {},
   deletePost: () => {},
 });
@@ -29,7 +29,7 @@ const PostListReducer = (currPostList, action) => {
 
 const PostListProvider = ({ children }) => {
   const [postList, dispatchPostList] = useReducer(PostListReducer, []);
-  const [fetching, setFetching] = useState(false);
+  // const [fetching, setFetching] = useState(false);
 
   const addPost = (post) => {
     dispatchPostList({
@@ -60,27 +60,28 @@ const PostListProvider = ({ children }) => {
   );
 
   // Add posts from DummyJson API using fetch
-  useEffect(() => {
-    setFetching(true);
+  // useEffect(() => {
+  //   setFetching(true);
 
-    const controller = new AbortController();
-    const signal = controller.signal;
+  //   const controller = new AbortController();
+  //   const signal = controller.signal;
 
-    fetch("https://dummyjson.com/posts", { signal })
-      .then((res) => res.json())
-      .then((data) => {
-        addInitialPost(data.posts);
-        setFetching(false);
-      });
+  //   fetch("https://dummyjson.com/posts", { signal })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       addInitialPost(data.posts);
+  //       setFetching(false);
+  //     });
 
-    return () => {
-      controller.abort();
-    };
-  }, []);
+  //   return () => {
+  //     controller.abort();
+  //   };
+  // }, []);
 
   return (
     <PostList.Provider
-      value={{ postList, addPost, deletePost, fetching }}
+      value={{ postList, addPost, deletePost }}
+      // value={{ postList, addPost, deletePost, fetching }}
     >
       {children}
     </PostList.Provider>
