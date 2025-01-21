@@ -11,12 +11,20 @@ const PostList = () => {
   // Add posts from DummyJson API using fetch
   useEffect(() => {
     setFetching(true);
-    fetch("https://dummyjson.com/posts")
+
+    const controller = new AbortController();
+    const signal = controller.signal;
+    fetch("https://dummyjson.com/posts", { signal })
       .then((res) => res.json())
       .then((data) => {
         addInitialPost(data.posts);
         setFetching(false);
       });
+
+    return () => {
+      console.log("clean up");
+      controller.abort();
+    };
   }, []);
 
   return (

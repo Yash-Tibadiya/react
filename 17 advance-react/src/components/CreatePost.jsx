@@ -9,7 +9,6 @@ const CreatePost = () => {
   const postTitleElement = useRef();
   const postBodyElement = useRef();
   const tagsElement = useRef();
-  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,7 +22,7 @@ const CreatePost = () => {
     postBodyElement.current.value = "";
     tagsElement.current.value = "";
 
-    addPost(userId, postTitle, postBody, reactions, tags);
+    addPost(userId, postTitle, postBody, tags);
   };
 
   return (
