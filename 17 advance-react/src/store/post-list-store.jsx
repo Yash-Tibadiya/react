@@ -1,4 +1,4 @@
-import { useReducer, createContext, use } from "react";
+import { useReducer, createContext, useCallback } from "react";
 
 export const PostList = createContext({
   postList: [],
