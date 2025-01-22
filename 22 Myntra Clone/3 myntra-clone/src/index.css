@@ -19,6 +19,7 @@ header {
   margin-left: 4%;
 }
 .action_bar {
+  margin-top: 1%;
   margin-right: 4%;
 }
 .nav_bar {
@@ -33,7 +34,7 @@ header {
   font-weight: 700;
   text-transform: uppercase;
   text-decoration: none;
-  padding: 28px 0;
+  padding: 10px 0;
   border-bottom: 5px solid #ffffff;
 }
 .nav_bar a:hover {
@@ -42,7 +43,7 @@ header {
 
 .nav_bar a sup {
   color: #ff3f6c;
-  font-size: 10px;
+  font-size: 9px;
 }
 
 .search_bar {
@@ -69,6 +70,7 @@ header {
   height: 40px;
   border: 0;
   border-radius: 0 4px 4px 0;
+  text-align: center;
 }
 
 .action_bar {
