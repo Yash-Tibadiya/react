@@ -1,6 +1,15 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { bagActions } from "../store/bagSlice";
+import { IoBagRemove } from "react-icons/io5";
 
-const Bagitem = ({item}) => {
+const Bagitem = ({ item }) => {
+  const dispatch = useDispatch();
+
+  const handleRemoveItem = () => {
+    dispatch(bagActions.removeFromBag(item.id));
+  };
+
   return (
     <>
       <div className="bag-item-container">
@@ -18,7 +27,9 @@ const Bagitem = ({item}) => {
             </span>
           </div>
           <div className="return-period">
-            <span className="return-period-days">{item.return_period} days</span>{" "}
+            <span className="return-period-days">
+              {item.return_period} days
+            </span>{" "}
             return available
           </div>
           <div className="delivery-details">
@@ -27,8 +38,8 @@ const Bagitem = ({item}) => {
           </div>
         </div>
 
-        <div className="remove-from-cart" onClick={() => console.log("Item removed")}>
-          X
+        <div className="remove-from-cart" onClick={handleRemoveItem}>
+          <IoBagRemove style={{ color: "red" }} />
         </div>
       </div>
     </>
