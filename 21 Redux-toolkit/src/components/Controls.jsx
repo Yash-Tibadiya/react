@@ -1,36 +1,37 @@
-import { useDispatch } from "react-redux";
 import { useRef } from "react";
+import { useDispatch } from "react-redux";
+import { counterActions } from "../store/counter";
+import { privacyActions } from "../store/privacy";
 
 const Controls = () => {
   const dispatch = useDispatch();
   const numberRef = useRef();
 
+  //! increment counter by 1
   const handleIncrement = () => {
-    dispatch({ type: "INCREMENT" });
+    dispatch(counterActions.incriment());
   };
 
+  //! decrement counter by 1
   const handleDecrement = () => {
-    dispatch({ type: "DECREMENT" });
+    dispatch(counterActions.decrement());
   };
 
-  const handleAddition = () => {
-    dispatch({
-      type: "ADDITION",
-      payload: { number: numberRef.current.value },
-    });
-    numberRef.current.value = "";
-  };
-
-  const handleSubtraction = () => {
-    dispatch({
-      type: "SUBTRACTION",
-      payload: { number: numberRef.current.value },
-    });
-    numberRef.current.value = "";
-  };
-
+  //! toggle privacy
   const handlePrivacyToggle = () => {
-    dispatch({ type: "PRIVACY_TOGGLE" });
+    dispatch(privacyActions.toggle());
+  };
+
+  //! add value to counter
+  const handleAddition = () => {
+    dispatch(counterActions.addition(numberRef.current.value));
+    numberRef.current.value = "";
+  };
+
+  //! subtract value from counter
+  const handleSubtraction = () => {
+    dispatch(counterActions.subtraction(numberRef.current.value));
+    numberRef.current.value = "";
   };
 
   return (
